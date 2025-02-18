@@ -9,3 +9,9 @@ function getComputerChoice(){
 }
 
 console.log(getComputerChoice());
+
+function getHumanChoice(){
+    let humanchoice = prompt("Enter your choice");
+    return humanchoice.toLowerCase();
+}
+console.log(getHumanChoice());
