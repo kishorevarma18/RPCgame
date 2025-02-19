@@ -10,34 +10,39 @@ function getComputerChoice(){
     else return "scissor";
 }
 
-function getHumanChoice(){
-    let humanchoice = prompt("Enter your choice");
-    document.getElementById("S2").innerHTML= "Your choice: "+humanchoice;
+function getHumanChoice(humanchoice){
     return humanchoice.toLowerCase();
 }
 
 function playRound(humanChoice, computerChoice){
-    if (humanChoice == "rock" && computerChoice == "scissor"){
-        document.getElementById("demo").innerHTML="You won! Rock beats Scissors";
+    if ((humanChoice == "rock" && computerChoice == "scissor")||(humanChoice == "scissors" && computerChoice == "paper")||(humanChoice == "paper" && computerChoice == "rock")){
         humanScore++;
-    }
-    else if (humanChoice == "scissors" && computerChoice == "paper"){
-        document.getElementById("demo").innerHTML="You won! Scissor beats Paper";
-        humanScore++;
-    }
-    else if (humanChoice == "paper" && computerChoice == "rock"){
-        document.getElementById("demo").innerHTML="You won! Paper beats Rock";
-        humanScore++;
+        return ("You won! "+""+humanChoice.charAt(0).toUpperCase()+humanChoice.substring(1,humanChoice.length)+" beats "+computerChoice.charAt(0).toUpperCase()+computerChoice.substring(1,computerChoice.length));
     }
     else if (humanChoice == computerChoice){
-        document.getElementById("demo").innerHTML="It's a tie, both have selected same choice";
+        return ("It's a tie, both have selected same choice");
     }
-    else {document.getElementById("demo").innerHTML="You lose! "+computerChoice.charAt(0).toUpperCase()+computerChoice.substring(1,computerChoice.length)+" beats "+humanChoice.charAt(0).toUpperCase()+humanChoice.substring(1,humanChoice.length);
+    else {
         computerScore++;
+        return ("You lose! "+computerChoice.charAt(0).toUpperCase()+computerChoice.substring(1,computerChoice.length)+" beats "+humanChoice.charAt(0).toUpperCase()+humanChoice.substring(1,humanChoice.length));
+        
     }
 }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
-document.getElementById("S1").innerHTML= "Computer choice: "+computerSelection;
-playRound(humanSelection,computerSelection);
+
+function playGame(num){
+    alert("Let's play Rock Paper Scissor"+"\n"+"You get 5 chances to win the game!!"+"\n"+"Let's start the game by clicking on 'Ok'");
+    for(i=1;i<=num;i++){
+    let humanchoice = prompt("Round: "+i+"\n"+"Enter your choice:");
+    let humanSelection = getHumanChoice(humanchoice);
+    let computerSelection = getComputerChoice();
+    alert("Your choice: "+humanchoice+"\n"+"Computer choice: "+computerSelection+"\n"+playRound(humanSelection,computerSelection)+"\n"+"Computer score = "+computerScore+ " Your score = "+humanScore);
+    }
+    if(humanScore>computerScore)
+        alert("You won the game!!");
+    else if(computerScore>humanScore)
+        alert("You lost the game....");
+    else alert("It's a tie.")
+}
+
+playGame(5);
